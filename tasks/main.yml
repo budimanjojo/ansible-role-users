@@ -1,13 +1,13 @@
 ---
-- name: Get defined list of groups
+- name: Get list of groups needed
   set_fact:
-    list_of_groups: "{{ (list_of_groups|default ([]) + item.groups)|unique }}"
+    list_of_groups: "{{ (list_of_groups | default ([]) + item.groups) | unique }}"
   loop: "{{ users_add }}"
   loop_control:
     label: "{{ item.groups if item.groups is defined else '' }}"
   when: item.groups is defined
 
-- name: Add groups
+- name: Ensure groups needed exist
   group:
     name: "{{ item }}"
     state: present
