@@ -17,7 +17,7 @@
 - name: Add users
   user:
     name: "{{ item.username }}"
-    password: "{{ item.password }}"
+    password: "{{ item.password | default(omit) }}"
     create_home: "{{ item.create_home | default('yes') | bool }}"
     generate_ssh_key: " {{ item.gen_ssh_key | default('no') | bool }}"
     append: "{{ item.append | default('no') | bool }}"

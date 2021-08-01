@@ -19,7 +19,7 @@ Available variables are listed below, the default values are in [defaults/main.y
 ## List of users to add
 users_add:
 - username: username you want to add (string)
-  password: sha512 hashed password, to generate it see above (string)
+  password: sha512 hashed password, to generate it see above, default is nothing (string)
   create_home: whether to create home directory, default is yes (bool)
   generate_ssh_key: whether to generate ssh key, default is no (bool)
   append: whether to append user to existing groups or remove other groups, default is no (bool)
