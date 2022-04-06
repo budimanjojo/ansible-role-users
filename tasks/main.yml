@@ -1,6 +1,6 @@
 ---
 - name: Get list of groups needed
-  set_fact:
+  ansible.builtin.set_fact:
     list_of_groups: "{{ (list_of_groups | default ([]) + item.groups) | unique }}"
   loop: "{{ users_add }}"
   loop_control:
@@ -8,14 +8,14 @@
   when: item.groups is defined
 
 - name: Ensure groups needed exist
-  group:
+  ansible.builtin.group:
     name: "{{ item }}"
     state: present
   loop: "{{ list_of_groups }}"
   when: list_of_groups is defined
 
 - name: Add users
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     password: "{{ item.password | default(omit) }}"
     create_home: "{{ item.create_home | default('yes') | bool }}"
@@ -40,7 +40,7 @@
   when: item is defined
 
 - name: Remove users
-  user:
+  ansible.builtin.user:
     name: "{{ item.username }}"
     state: absent
     remove: "{{ item.remove_dir | default('no') | bool }}"
@@ -50,7 +50,7 @@
   when: item is defined
 
 - name: Remove groups
-  group:
+  ansible.builtin.group:
     name: "{{ item }}"
     state: absent
   loop: "{{ groups_remove }}"
